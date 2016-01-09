@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://espr.website ws://localhost:35729 data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *;script-src 'self' localhost:35729 'unsafe-eval' 'unsafe-inline';">-->
+    <link href="css/libs/jquery.mobile.squareui.css" rel="stylesheet" type="text/css"/>
+    <link href="material-icons/material-design-iconic-font.min.css" rel="stylesheet" type="text/css"/>
+    <link href="css/fonts/flaticon.css" rel="stylesheet" type="text/css"/>
+    <link href="css/libs/app.1.css" rel="stylesheet" type="text/css"/>
+    <link href="css/libs/app.2.css" rel="stylesheet" type="text/css"/>
+    <link href="css/index.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <link href="css/libs/slickQuiz.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="css/libs/master.css" media="screen" rel="stylesheet" type="text/css">
+
+    <script src="js/libs/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script src="js/libs/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+
+    <script src="js/libs/persistence/persistence.js" type="text/javascript"></script>
+    <script src="js/libs/persistence/persistence.jquery.js" type="text/javascript"></script>
+    <script src="js/libs/persistence/persistence.store.sql.js" type="text/javascript"></script>
+    <script src="js/libs/persistence/persistence.store.websql.js" type="text/javascript"></script>
+    <script src="js/libs/persistence/persistence.sync.js" type="text/javascript"></script>
+
+    <script src="js/core/db_connection.js" type="text/javascript"></script>
+    <script src="js/core/table.js" type="text/javascript"></script>
+    <script src="js/app/model/favorites.js" type="text/javascript"></script>
+
+    <script src="js/libs/slickQuiz-config.js"></script>
+    <script src="js/libs/slickQuiz.js"></script>
+    <script src="js/libs/master.js"></script>
+
+    <title>Hello World</title>
+
+    <style>
+        .ui-popup-container {
+            position: fixed;
+        }
+
+        #option, #goption, #gloption, #coption, #aoption {
+            top: 21px;
+            padding: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            background-color: #ffffff;
+            border: 1px solid transparent;
+        }
+
+        #option ul, #goption ul, #gloption ul, #coption ul, #aoption ul {
+            padding: 5px 0;
+            margin: 0;
+            list-style-type: none;
+
+        }
+
+        #option ul li, #goption ul li, #gloption ul li, #coption ul li, #aoption ul li {
+            margin: 15px 0;
+        }
+
+        #option ul li a, #goption ul li a, #gloption ul li a, #coption ul li a, #aoption ul li a {
+
+            text-decoration: none;
+            font-size: 12px;
+            color: #666;
+
+        }
+
+        .app-menu, .app-search, .app-shr, .app-title {
+            float: left;
+            height: 100%;
+            line-height: 65px;
+            margin: -5px 15px;
+        }
+
+        .app-search, .app-shr {
+            float: right;
+        }
+
+        .app-title {
+            margin: 0;
+        }
+
+        .app-menu a i, .app-search a i, .app-shr a i {
+            color: #fff;
+            font-size: 24px;
+        }
+
+        .header {
+            min-height: 60px;
+        }
+
+        .h-serach {
+            float: left;
+            max-width: 75%;
+            background: #4285F4 !important;
+            border-style: none !important;
+            margin-top: 0px !important;
+        }
+
+        .h-serach .ui-body-inherit {
+            border-style: none;
+            border-bottom: 1px solid #fff !important;
+            background: transparent !important;
+            color: #fff;
+            width: 100%
+        }
+
+        .ui-alt-icon .ui-icon-search::after, .ui-input-search::after {
+            background-image: url("img/search_white_24x24.png") !important;
+            background-size: 24px 24px;
+            height: 24px;
+            width: 24px;
+            opacity: 1;
+        }
+
+        .ui-input-search::after {
+            top: 47%;
+
+        }
+
+        .ui-btn-icon-notext::after {
+            top: 62%;
+        }
+
+        .ui-input-search input {
+            padding-left: 2em;
+            padding-bottom: 0;
+            color: #fff;
+        }
+
+        .ui-icon-delete::after {
+            background-image: url("img/close_white_24x24.png") !important;
+        }
+
+        .ui-input-search input::-webkit-input-placeholder {
+            color: #f0f0f0;
+            font-size: 17px;
+            font-weight: lighter;
+        }
+
+        .ui-input-search input:-moz-placeholder {
+            /* Firefox 18- */
+            color: #f0f0f0;
+            font-size: 17px;
+
+            font-weight: lighter;
+
+        }
+
+        .ui-input-search input::-moz-placeholder {
+            /* Firefox 19+ */
+            color: #f0f0f0;
+            font-size: 17px;
+
+            font-weight: lighter;
+
+        }
+
+        .ui-input-search input:-ms-input-placeholder {
+            color: #f0f0f0;
+            font-size: 17px;
+            font-weight: lighter;
+
+        }
+
+    </style>
+</head>
+<body>
+<div data-role="page" id="page-home">
+
+    <div data-role="header" data-id="persistent" data-position="fixed" class="header">
+
+        <h1 class="h-title">ចរាចរណ៏ផ្លូវគោកកម្ពុជា</h1>
+    </div>
+    <!-- /header -->
+
+    <div data-role="content" id="content">
+        <ul class="catmenu umlist">
+
+            <li><a href="#page-laws" data-transition="slide"><img src="img/catimg/law.png" alt="001"/></a></li>
+            <li><a href="#page-lawsigns" data-transition="slide"><img src="img/catimg/sign.png" alt="002"/></a></li>
+            <li><a href="#page-driving"><img src="img/catimg/driving.png" alt="003"/></a></li>
+            <!--<li><a><img src="img/catimg/testing.png" alt="004"/></a></li>-->
+            <!--<li><a><img src="img/catimg/map.png" alt="005"/></a></li>-->
+            <li><a href="#page-contacts" data-transition="slide"><img src="img/catimg/contact.png" alt="006"/></a></li>
+
+        </ul>
+    </div>
+
+</div>
+
+
+<div data-role="page" id="page-laws"></div>
+<!-- /page -->
+<div data-role="page" id="page-articles"></div>
+<!-- /page -->
+
+<div data-role="page" id="page-lawsigns"></div>
+<!-- /page -->
+<div data-role="page" id="page-groupsigns"></div>
+<!-- /page -->
+<div data-role="page" id="page-groupsignlists"></div>
+<!-- /page -->
+<div data-role="page" id="page-driving">
+    <div data-role="header" data-id="persistent" data-position="fixed" class="header">
+
+        <div class="app-menu">
+            <a href="#" data-rel="back" data-transition="reverse" class="">
+                <i class="md md-arrow-back"></i>
+            </a>
+        </div>
+        <h1 class="h-title">ប័ណ្ណបើកបរ</h1>
+    </div>
+    <!-- /header -->
+    ​
+    <div data-role="content" class="c-pd-tb">
+
+        <div class="card m-b-0">
+            <div class="listview lv-bordered lv-lg " id="pagelaw">
+                <div class="lv-body" data-role="listview" data-filter="true" data-input="#filterlaw">
+
+
+                    <div class="lv-item media cus-listview">
+                        <small class="lv-small m-title">១. នៅទីប្រជុំជន តើម៉ូតូត្រូវឈប់ ទចតនៅទីកន្លែងដូចម្ដេច?</small>
+                        <small class="lv-small s-title">ចម្លើយ៖ ត្រូវឈប់ ឬ ចតនៅលើជាយផ្លូវ</small>
+                    </div>
+                    <div class="lv-item media cus-listview">
+                        <small class="lv-small m-title">២.​ តើប្រជាពលរដ្ឋមានអាយុចាប់ពីប៉ុន្មានឆ្នាំឡើងទៅ ទើបមានសិទ្ធបើកបរ ទោចក្រយាន្ត ដែលមានទំហំស៊ីឡាំងចាប់ពី ៤៩ សេសេ ដល់ ១២៥ សេសេ [ក១]?</small>
+                        <small class="lv-small s-title">ចម្លើយ៖ ១៦ ឆ្នាំ ពេញបរិបូរណ៍</small>
+                    </div>
+                    <div class="lv-item media cus-listview">
+                        <small class="lv-small m-title">៣. នៅក្រៅទីប្រជុំជន តើការកំណត់ល្បឿន អតិបរមា សំរាប់ទោចក្រយានយន្តប៉ុន្មាន?</small>
+                        <small class="lv-small s-title">ចម្លើយ៖ ៧០ គីឡូមែត្រ ក្នុងមួយម៉ោង</small>
+                    </div>
+                    <div class="lv-item media cus-listview">
+                        <small class="lv-small m-title">៤. តើច្បាប់ចរាចរណ៍ ផ្លូវគោក ហាមពិសាជាតិស្រវឹងដែលមានអត្រាជាតិអាកុលចាប់ ប៉ុន្មានមីលីក្រាម ក្នុងមួយលីត្រខ្យល់?</small>
+                        <small class="lv-small s-title">ចម្លើយ៖ ចាប់ពី ០.២៥ មីលីក្រាមក្នុងមួយលីតខ្យល់</small>
+                    </div>
+                    <div class="lv-item media cus-listview">
+                        <small class="lv-small m-title">៥. តើអ្នកបើករទោចក្រយានយន្ត ឬត្រីចក្រយានយន្ត អាចជែងស្ដាំ បានឬទេ?</small>
+                        <small class="lv-small s-title">ចម្លើយ៖ អាចជែងខាងស្ដាំបាន លើកលែងតែយានដែលត្រូវជែងនោះ បាននឹងកំពុងធ្វើសញ្ញា ប្ដូរទិសដៅឆ្វេង ហើយឈប់ ឬត្រៀមដើម្បីបទឆ្វេង
+                        </small>
+                    </div>
+                    <div class="lv-item media cus-listview">
+                        <small class="lv-small m-title">៦.នៅលើមហាវិថីទីប្រជុំជន តើយានជំនិះគ្រប់ប្រភេទ ត្រូវឈប់ដាក់មនុស្សឡើង ឬចុះ នៅចំងាយប៉ុន្មានមែត្រពីផ្លូវប្រសព្វ?</small>
+                        <small class="lv-small s-title">ចម្លើយ៖ យ៉ាងតិច ១០ មែត្រ</small>
+                    </div>
+                    <div class="lv-item media cus-listview">
+                        <small class="lv-small m-title">៧. នៅពេលដែលអ្នកបើកបរទោចក្រយានយន្ត និង ត្រីចក្រយាន្តយន្ត ជួបអ្នកថ្មើជើងដែលរៀប ឬកំពុងឆ្លងកាត់ទ្រូងផ្លូវ ដែលកន្លែងនៅមានសញ្ញាសម្រាប់អ្នកថ្មើជើងឆ្លងកាត់ តើអ្នកត្រូវធ្វើដូចម្ដេច?</small>
+                        <small class="lv-small s-title">ចម្លើយ៖ ត្រូវឈប់នៅមុខគំនូស</small>
+                    </div>
+                    <div class="lv-item media cus-listview">
+                        <small class="lv-small m-title">៨. អ្នកមានប័ណ្ណបើកបរប្រភេទ ខ តើអ្នកមានសិទ្ធិបើកបរម៉ូតូ ប្រភេទ ក២ បាន ឬទេ?</small>
+                        <small class="lv-small s-title">ចម្លើយ៖ មិនបានទេ</small>
+                    </div>
+                    <div class="lv-item media cus-listview">
+                        <small class="lv-small m-title">៩. នៅពេលចរាចរណ៍ចង្អៀតខ្លាំង យាននៅគន្លងខាងស្ដាំលឿនជាងយាននៅខាងឆ្វេង តើចាត់ទុកជាការជែងដែរ ឬទេ? </small>
+                        <small class="lv-small s-title">ចម្លើយ៖ មិនចាត់ទុកជាការជែងទេ</small>
+                    </div>
+                    <div class="lv-item media cus-listview">
+                        <small class="lv-small m-title">១០. តើអ្នកបើកបរទោចក្រយានយន្ត ត្រីចក្រយានយ​ន្ត ត្រូវឈប់ ឬចតប៉ុន្មានមែត្រ និងពីក្រោយផ្លាកសញ្ញាកន្លែងរបស់រថយន្តក្រុងឈប់?</small>
+                        <small class="lv-small s-title">ចម្លើយ៖ យ៉ាងតិច ១០ ម៉ែត្រ</small>
+                    </div>
+                    <a style="float: right;margin: 0px 17px;" href="#" id="seeMore"
+                       class="btn btn-default">ច្រើនទៀត...</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /content -->
+
+
+</div>
+<!-- /page -->
+
+<div data-role="page" id="page-contacts"></div>
+
+<div data-role="page" id="slickQuiz">
+    <div data-role="header" data-id="persistent" data-position="fixed" class="header">
+
+        <a href="#" data-rel="back" data-transition="reverse" class="srmenu m-back">
+            <i class="md md-arrow-back"></i>
+        </a>
+
+        <h1 class="h-title">ទំនាក់ទំនង</h1>
+
+        <a href="#coption" data-rel="popup" data-inline="true" data-transition="pop" class="srmenu ui-btn-right">
+            <i class="md md-more-vert"></i>
+        </a>
+    </div>
+    <!-- /header -->
+    <h1 class="quizName"><!-- where the quiz name goes --></h1>
+
+    <div class="quizArea">
+        <div class="quizHeader">
+            <!-- where the quiz main copy goes -->
+
+            <a class="button startQuiz" href="#" style="text-align: center !important;
+    margin-left: 30%;
+    width: 40%;">ចាប់ផ្ដើម សាកល្បង</a>
+        </div>
+
+        <!-- where the quiz gets built -->
+    </div>
+
+    <div class="quizResults">
+        <h3 class="quizScore">You Scored: <span><!-- where the quiz score goes --></span></h3>
+
+        <h3 class="quizLevel"><strong>Ranking:</strong> <span><!-- where the quiz ranking level goes --></span></h3>
+
+        <div class="quizResultsCopy">
+            <!-- where the quiz result copy goes -->
+        </div>
+    </div>
+</div>
+<!-- /page -->
+
+<script type="text/javascript" src="cordova.js"></script>
+<script src="js/core/app.js" type="text/javascript"></script>
+<script src="js/libs/handlebars-v4.0.2.js" type="text/javascript"></script>
+<script src="js/core/app_template.js" type="text/javascript"></script>
+<script src="js/core/app_cache.js" type="text/javascript"></script>
+<script src="js/app/action/act.js" type="text/javascript"></script>
+
+<script src="js/app/view/law_view.js" type="text/javascript"></script>
+<script src="js/app/view/article_view.js" type="text/javascript"></script>
+<script src="js/app/model/law_model.js" type="text/javascript"></script>
+<script src="js/app/model/article_model.js" type="text/javascript"></script>
+<script src="js/app/controller/law_controller.js" type="text/javascript"></script>
+
+<script src="js/app/view/lawsign_view.js" type="text/javascript"></script>
+<script src="js/app/model/lawsign_model.js" type="text/javascript"></script>
+<script src="js/app/controller/lawsign_controller.js" type="text/javascript"></script>
+
+<script src="js/app/view/groupsign_view.js" type="text/javascript"></script>
+<script src="js/app/model/groupsign_model.js" type="text/javascript"></script>
+<script src="js/app/controller/groupsign_controller.js" type="text/javascript"></script>
+
+<script src="js/app/view/groupsignlist_view.js" type="text/javascript"></script>
+<script src="js/app/model/groupsignlist_model.js" type="text/javascript"></script>
+
+<script src="js/app/view/contact_view.js" type="text/javascript"></script>
+<script src="js/app/model/contact_model.js" type="text/javascript"></script>
+<script src="js/app/controller/contact_controller.js" type="text/javascript"></script>
+
+<script src="js/app/action/sidepanel.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+    App.onDeviceReady();
+    $(document).on("mobileinit", function () {
+        $.mobile.allowCrossDomainPages = true;
+        $.support.cors = true;
+    });
+</script>
+
+<script type="text/javascript">
+
+</script>
+
+
+</body>
+</html>

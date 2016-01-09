@@ -1,0 +1,33 @@
+<div data-role="header" data-id="persistent" data-position="fixed" class="header">
+
+    <div class="app-menu">
+        <a href="#" data-rel="back" data-transition="reverse" class="">
+            <i class="md md-arrow-back"></i>
+        </a>
+    </div>
+    <h1 class="h-title">ស្លាកសញ្ញាចរាចរណ៍</h1>
+</div><!-- /header -->
+<div data-role="content" class="c-pd-tb">  
+
+    <div class="card m-b-0">
+        <div class="listview lv-bordered lv-lg" id="pagegroupsign">
+            <div class="lv-body" data-role="listview" data-filter="true" data-input="#filterBasic-input">
+                {{#each groupsign}}
+                <a href="#page-groupsignlists" data-id="{{id}}" data-transition="slide" class="no-arro">
+
+                    <div class="lv-item media cus-listview">
+
+                        <div class="media-body">
+                            <div class="lv-title l-title"> {{group}}</div>
+                            <small class="lv-small​​ m-title"> {{title}}</small>
+                            <small class="lv-small s-title"> {{group}} មាន{{{description}}}</small>
+                        </div>
+                    </div>
+                </a>
+                {{/each}}
+
+            </div>
+        </div> 
+    </div>
+</div><!-- /content -->
+

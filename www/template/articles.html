@@ -1,0 +1,31 @@
+<div data-role="header" data-id="persistent" data-position="fixed" class="header">
+
+    <div class="app-menu">
+        <a href="#" data-rel="back" data-transition="reverse" class="">
+            <i class="md md-arrow-back"></i>
+        </a>
+    </div>
+    <h1 class="h-title">មាត្រា</h1>
+</div><!-- /header -->
+
+<div data-role="content" class="c-pd-tb">
+    <div class="container p-t-25 dont-break-out">
+        {{#each article}}
+
+        <div class="card m-b-0">
+
+            <div class="card-header" style="
+    padding: 5px 18px !important;">
+                <h2>{{article}} <span class="l-title">{{title}}</span></h2>
+            </div>
+
+            <div class="card-body card-padding p-t-0 breadcrumb">
+                <p class="artdesc">{{{description}}}</p>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+
+
+</div><!-- /content -->
+
